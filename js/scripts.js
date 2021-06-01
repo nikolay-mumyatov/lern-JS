@@ -1,10 +1,11 @@
 "use strict";
 // Переменные
 
-let money = 70000, 
+let money = prompt("Ваш ежемесячный доход?"), 
   income = 'Фриланс', 
-  addExpenses = 'Оплата квартиры, Атомобиль, Оплата связи', 
-  deposit = true,
+  addExpenses = prompt(
+  "Перечислите возможные расходы за рассчитываемый период через запятую"), 
+  deposit = confirm("Есть ли у вас депозит в банке?"),
   mission = 800000,
   period = 8;
 
@@ -24,12 +25,6 @@ let budgetDay = money / 30;
 console.log(budgetDay.toFixed(2)); // Дневной бюджет
 
 // - lesson_03 -
-
-money = prompt("Ваш ежемесячный доход?");
-addExpenses = prompt(
-  "Перечислите возможные расходы за рассчитываемый период через запятую"
-);
-deposit = confirm("Есть ли у вас депозит в банке?");
 
 let mandatoryExpensesOne = prompt('Введите обязательную статью расходов.'),
     costExpensesOne = prompt('Во сколько это обойдется?'),
@@ -54,5 +49,3 @@ if (budgetDay >= 1200){
 } else {
   console.log('Что то пошло не так');
 }
-
-// жку, автомобиль, интернет, телефон, развлечения;
