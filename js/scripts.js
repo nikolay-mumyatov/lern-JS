@@ -1,13 +1,36 @@
 "use strict";
 // Переменные
 
-let money = +prompt("Ваш ежемесячный доход?"), 
+// Функция проверяет входящие данные на число.
+const isNumber = function (n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);  
+};
+
+
+let money,
   income = 'Фриланс', 
-  addExpenses = prompt(
-  "Перечислите возможные расходы за рассчитываемый период через запятую"), 
-  deposit = confirm("Есть ли у вас депозит в банке?"),
+  addExpenses, 
+  deposit,
   mission = 800000,
   period = 8;
+
+
+// Проверка money на число, если введенные данные не число, то вопрос повторяется.
+const start = function () {
+  do {
+    money = prompt("Ваш ежемесячный доход?", "100000");
+  } while (!isNumber(money));
+};
+start();
+
+
+addExpenses = prompt(
+  "Перечислите возможные расходы за рассчитываемый период через запятую",
+  "жку, телефон, интерент"
+);
+
+deposit = confirm("Есть ли у вас депозит в банке?");
+
 
 // Функция возвращает тип данных
 function showTypeOf(data) {
@@ -20,23 +43,26 @@ showTypeOf(deposit);
 console.log(`Период равен ${period} месяцев`);
 console.log(`Цель заработать ${mission} рублей`);
 
-// - lesson_03 -
-
-let mandatoryExpensesOne = prompt('Введите обязательную статью расходов.'),
-    costExpensesOne = +prompt('Во сколько это обойдется?'),
-    mandatoryExpensestwo = prompt('Введите обязательную статью расходов.'),
-    costExpensesTwo = +prompt('Во сколько это обойдется?');
-
-
-// - lesson_04 -
 
 // Функция возвращает сумму всех обязательных расходов за месяц
-let totalExpenses;
+let expenses = [];
 function getExpensesMonth(costOne, costTwo) {
-  totalExpenses = costOne + costTwo;
+  let sum = 0;
+
+  for (let i = 0; i < 2; i++) {
+    expenses[i] = prompt("Введите обязательную статью расходов.","Продукты");
+
+    do {
+      sum += +prompt("Во сколько это обойдется?", "23000");
+    } while (!isNumber(sum));
+
+  }
+  console.log(expenses);
+  return sum;
 }
-getExpensesMonth(costExpensesOne, costExpensesTwo);
-console.log(`Сумма расходов: ${totalExpenses} руб`);
+let expensesAmount = getExpensesMonth();
+console.log(expensesAmount);
+console.log(`Сумма расходов: ${expensesAmount} руб`);
 
 
 // Вывод возможных расходов
@@ -45,23 +71,23 @@ console.log(`Список возможных расходов: ${addExpenses.spl
 
 
 // Функция возвращает Накопления за месяц (Доходы минус расходы)
-let accumulatedMonth;
-function getAccumulatedMonth(a, b) {
-  accumulatedMonth = a - b;
+function getAccumulatedMonth(money, totalExpenses) {
+  return money - totalExpenses;
 }
-getAccumulatedMonth(money, totalExpenses);
+let accumulatedMonth = getAccumulatedMonth(money, expensesAmount);
 console.log(`Сумма накоплений: ${accumulatedMonth} руб`);
 
 
 // Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления и возвращает результат
-let missionMonth;
-function getTargetMonth(a, b) {
-  missionMonth = a / b;
+function getTargetMonth(mission, accumulatedMonth) {
+  let sumMonth = mission / accumulatedMonth;
+  if (sumMonth < 0) {
+    console.log('Цель не будет достигнута.');
+  } else {
+    console.log(`Цель будет достигнута через ${Math.ceil(sumMonth)} мес.`);
+  }
 }
 getTargetMonth(mission, accumulatedMonth);
-console.log(
-  `Колличество месяцев до достижения цели: ${Math.ceil(missionMonth)}`
-);
 
 
 // Узнаем дневной бюджет
