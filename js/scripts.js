@@ -25,17 +25,54 @@ let appData = {
   expenses: {},
   addExpenses: [],
   deposit: false,
+  percentDeposit: 0,
+  moneyDeposit: 0,
   mission: 800000,
   period: 8,
   // Основные вопросы клиенту
   ascing: function () {
-    let addExpenses = prompt(
-      "Перечислите возможные расходы за рассчитываемый период через запятую",
-      "жку, телефон, интерент"
-    );
-    appData.addExpenses = addExpenses.toLowerCase().split(", "); // Вывод возможных расходов
+    if (confirm("Есть ли у вас дополнительный источник дохода?")) {
+      let itemIncome;
+      do {
+        itemIncome = prompt(
+          "Введите дополнительный источник дохода",
+          "фриланс"
+        );
+      } while (isNumber(itemIncome));
+
+      let cashIncome = 0;
+      do {
+        cashIncome = +prompt(
+          "Сколько в месяц вы зарабатываете дополнительно?",
+          "12000"
+        );
+      } while (!isNumber(cashIncome));
+      appData.income[itemIncome] = cashIncome;
+    }
+
+    // Вывод списка возможных расходов
+    let addExpenses;
+    do {
+      addExpenses = prompt(
+        "Перечислите возможные расходы за рассчитываемый период через запятую",
+        "жку, телефон, интерент"
+      );
+    } while (isNumber(addExpenses));
+
+    let wordArr = [];
+    appData.addExpenses = addExpenses.split(",");
+    for (let letter of appData.addExpenses) {
+      letter = letter.trim();
+      letter = letter[0].toUpperCase() + letter.slice(1);
+      wordArr.push(letter);
+    }
+    console.log(wordArr.join(", "));
+    appData.addExpenses = wordArr;
+
+    // Информация о наличии депозита
     appData.deposit = confirm("Есть ли у вас депозит в банке?");
 
+    // Информация о возможных расходах
     for (let i = 0; i < 2; i++) {
       let ask = prompt("Введите обязательную статью расходов.");
 
@@ -81,8 +118,25 @@ let appData = {
       console.log("Что то пошло не так");
     }
   },
+  getInfoDeposit: function () {
+    if (appData.deposit) {
+      
+      do {
+        appData.percentDeposit = prompt(
+          "Какой у вас годовой процент у депозита?",5);
+      } while (!isNumber(appData.percentDeposit));
+      
+      do {
+        appData.moneyDeposit = prompt("Какая сумма у вас вложена?", "100000");
+      } while (!isNumber(appData.moneyDeposit));
+    }
+  },
+  calcSavedMoney: function () {
+    return appData.budgetMonth * appData.period;
+  }
 };
 appData.ascing();
+console.log(appData);
 
 // Функция возвращает сумму всех обязательных расходов за месяц
 appData.getExpensesMonth();
@@ -92,7 +146,10 @@ appData.getBudget();
 appData.getTargetMonth();
 // Определяем уровень дохода
 appData.getStatusIncome();
-
+// Получаем информацию о депозите
+appData.getInfoDeposit();
+// Сколько сможет накопить клиент исходя из доходов за выбраный период
+appData.calcSavedMoney();
 
 console.log("Наша программа включает в себя данные: ");
 for (let key in appData) {
