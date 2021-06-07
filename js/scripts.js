@@ -74,7 +74,10 @@ let appData = {
 
     // Информация о возможных расходах
     for (let i = 0; i < 2; i++) {
-      let ask = prompt("Введите обязательную статью расходов.");
+      let ask;
+      do {
+        ask = prompt("Введите обязательную статью расходов.");
+      } while (isNumber(ask));
 
       let sum = 0;
       do {
