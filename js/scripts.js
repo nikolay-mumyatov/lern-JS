@@ -1,5 +1,28 @@
 "use strict";
 
+// Получаем элементы
+let calcButton = document.getElementById("start"), // Кнопка "рассчитать"
+  plusIncome = document.getElementsByTagName("button")[0], // Плюс доходы
+  plusExpenses = document.getElementsByTagName("button")[1], // Плюс расходы
+  depositCheck = document.querySelector("#deposit-check"), // Чекбокс депозит
+  addIncomeItem = document.querySelectorAll(".additional_income-item"), // Возможный доход инпуты ввода
+  elemBudgetMonth = document.getElementsByClassName("budget_month-value")[0], // Доходы за месяц
+  elemBudgetDay = document.getElementsByClassName("budget_day-value")[0], //  Дневной бюджет
+  elemExpensesMonth = document.getElementsByClassName("expenses_month-value")[0], // Расходы за месяц
+  elemAddIncomeValue = document.getElementsByClassName("additional_income-value")[0], // Ввод возможных доходов
+  elemAddExpensesValue = document.getElementsByClassName("additional_expenses-value")[0], // ВВод возможных расходов
+  elemPeriodValue = document.getElementsByClassName("income_period-value")[0], // Накопления за период
+  elemMissionValue = document.getElementsByClassName("target_month-value")[0], // Срок достижения цели в месяцах
+  elemMoney = document.querySelector(".salary-amount"), // Месячный доход
+  elemIncomeTitle = document.querySelector(".income-title"), // Название доп дохода
+  elemIncomeAmount = document.querySelector(".income-amount"), // Сумма доп дохода
+  elemExpensesTitle = document.querySelector("input.expenses-title"), // Обязательные расходы
+  elemExpensesAmount = document.querySelector(".expenses-amount"), // Сумма обяз. расходов
+  elemAddExpensesItem = document.querySelector(".additional_expenses-item"), // Возможные расходы, список
+  elemMission = document.querySelector(".target-amount"), // Цель накопить
+  elemRange = document.querySelector(".period-select"); // Ползунок - период расчета
+  
+
 // Функция проверяет входящие данные на число.
 const isNumber = function (n) {
   return !isNaN(parseFloat(n)) && isFinite(n);  
@@ -12,7 +35,7 @@ const start = function () {
     money = prompt("Ваш ежемесячный доход?", "100000");
   } while (!isNumber(money));
 };
-start();
+// start();
 
 
 let appData = {
@@ -138,8 +161,8 @@ let appData = {
     return appData.budgetMonth * appData.period;
   }
 };
-appData.ascing();
-console.log(appData);
+// appData.ascing();
+// console.log(appData);
 
 // Функция возвращает сумму всех обязательных расходов за месяц
 appData.getExpensesMonth();
@@ -154,7 +177,7 @@ appData.getInfoDeposit();
 // Сколько сможет накопить клиент исходя из доходов за выбраный период
 appData.calcSavedMoney();
 
-console.log("Наша программа включает в себя данные: ");
-for (let key in appData) {
-  console.log('Ключ: ' + key + ' -  Значение: ' + appData[key]);
-}
+// console.log("Наша программа включает в себя данные: ");
+// for (let key in appData) {
+//   console.log('Ключ: ' + key + ' -  Значение: ' + appData[key]);
+// }
