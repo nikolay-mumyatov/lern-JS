@@ -101,6 +101,8 @@ let appData = {
     this.deposit = false;
     this.percentDeposit = 0;
     this.moneyDeposit = 0;
+    elemRange.value = 0;
+    periodAmount.innerHTML = 1;
 
     // Сброс полей Дополнительных доход
     const resetBlockIncome = function () {
