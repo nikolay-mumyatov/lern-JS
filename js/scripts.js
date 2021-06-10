@@ -151,6 +151,23 @@ let appData = {
     let cloneExpensesItem = expensesItems[0].cloneNode(true);
     expensesItems[0].parentNode.insertBefore(cloneExpensesItem, plusExpenses);
     expensesItems = document.querySelectorAll(".expenses-items");
+    
+    // Обнуляем значение в новых инпутах
+    if (expensesItems.length === 2) {
+      let itemsInput = expensesItems[1].querySelectorAll("input[type=text]");
+      itemsInput.forEach(function(element){
+        element.value = '';
+      });
+
+    } else if (expensesItems.length === 3) {
+      let itemsInput = expensesItems[2].querySelectorAll("input[type=text]");
+      itemsInput.forEach(function (element) {
+        element.value = "";
+      });
+    } else {
+      return;
+    }
+
     if (expensesItems.length === 3) {
       plusExpenses.style.display = "none";
     }
@@ -169,6 +186,22 @@ let appData = {
     let cloneIncomeItem = incomeItems[0].cloneNode(true);
     incomeItems[0].parentNode.insertBefore(cloneIncomeItem, plusIncome);
     incomeItems = document.querySelectorAll(".income-items");
+
+    // Обнуляем значение в новых инпутах
+    if (incomeItems.length === 2) {
+      let itemsInput = incomeItems[1].querySelectorAll("input[type=text]");
+      itemsInput.forEach(function (element) {
+        element.value = "";
+      });
+    } else if (incomeItems.length === 3) {
+      let itemsInput = incomeItems[2].querySelectorAll("input[type=text]");
+      itemsInput.forEach(function (element) {
+        element.value = "";
+      });
+    } else {
+      return;
+    }
+
     if (incomeItems.length === 3) {
       plusIncome.style.display = "none";
     }
