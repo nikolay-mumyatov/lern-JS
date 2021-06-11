@@ -9,11 +9,16 @@ let todoData = [];
 
 // Получаем и переводим данные из localStorage
 const showTodo = function () {
-  let json = localStorage.getItem("jsonItem");
-  let arr = JSON.parse(json);
-  arr.forEach(function (item) {
-    todoData.push(item);
-  });
+  if (localStorage.getItem("jsonItem")) {
+    let json = localStorage.getItem("jsonItem");
+    let arr = JSON.parse(json);
+    arr.forEach(function (item) {
+      todoData.push(item);
+    });
+  } else {
+    return;
+  }
+  
 };
 showTodo();
 
