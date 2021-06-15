@@ -28,7 +28,10 @@ let calcButton = document.getElementById("start"), // Кнопка "рассчи
   elemMission = document.querySelector(".target-amount"), // Цель накопить
   elemRange = document.querySelector(".period-select"), // Ползунок - период расчета
   periodAmount = document.querySelector(".period-amount"), // Число под ползунком
-  cancel = document.querySelector("#cancel"); // Кнопка Сбросить
+  cancel = document.querySelector("#cancel"), // Кнопка Сбросить
+  depositBank = document.querySelector(".deposit-bank"),
+  depositAmount = document.querySelector(".deposit-amount"),
+  depositPercent = document.querySelector(".deposit-percent");
 
 // Функция проверяет входящие данные на число.
 const isNumber = function (n) {
@@ -81,7 +84,7 @@ class AppData {
     // Определяем уровень дохода
     //     appData.getStatusIncome();
     // Получаем информацию о депозите
-    //     appData.getInfoDeposit();
+    this.getInfoDeposit();
     // Сколько сможет накопить клиент исходя из доходов за выбраный период
     //     appData.calcSavedMoney();
     this.getAddIncome();
@@ -137,6 +140,20 @@ class AppData {
       }
     };
     resetBlockExpenses();
+
+    // Сброс значений депозита
+    const resetDeposit = () => {
+      depositBank.style.display = "none";
+      depositAmount.style.display = "none";
+      depositBank.value = "";
+      depositAmount.value = "";
+      this.deposit = false;
+      depositBank.removeEventListener("change", this.changePercent);
+      depositPercent.style.display = "none";
+      depositPercent.value = "";
+      depositBank.removeAttr("checked");
+    };
+    resetDeposit();
   }
 
   // Показать результат в поле справа
@@ -266,7 +283,9 @@ class AppData {
 
   // Функция возвращает Накопления за месяц (Доходы минус расходы)
   getBudget() {
-    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
+    const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
+    this.budgetMonth =
+      this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
     this.budgetDay = Math.ceil(this.budgetMonth / 30);
   }
 
@@ -277,6 +296,51 @@ class AppData {
 
   calcSavedMoney() {
     return this.budgetMonth * elemRange.value;
+  }
+
+  changePercent() {
+    const valueSelect = this.value;
+    if (valueSelect === "other") {
+      depositPercent.style.display = "block";
+      depositPercent.addEventListener("input", function () {
+        if (!isNumber(depositPercent.value)) {
+          alert("Введите корректное значение в поле проценты! Введите число от 1 до 100!");
+          depositPercent.value = '';
+        } else if (depositPercent.value > 100 || depositPercent.value < 0) {
+          alert(
+            "Введите корректное значение в поле проценты! Введите число от 1 до 100!"
+          );
+          depositPercent.value = "";
+        }
+      });
+    } else {
+      depositPercent.style.display = "none";
+      depositPercent.value = valueSelect;
+      depositPercent.value = "";
+    }
+  }
+
+  depositHandler() {
+    if (depositCheck.checked) {
+      depositBank.style.display = "inline-block";
+      depositAmount.style.display = "inline-block";
+      this.deposit = true;
+      depositBank.addEventListener("change", this.changePercent);
+    } else {
+      depositBank.style.display = "none";
+      depositAmount.style.display = "none";
+      depositBank.value = "";
+      depositAmount.value = "";
+      this.deposit = false;
+      depositBank.removeEventListener("change", this.changePercent);
+    }
+  }
+
+  getInfoDeposit() {
+    if (this.deposit) {
+      this.percentDeposit = depositPercent.value;
+      this.moneyDeposit = depositAmount.value;
+    }
   }
 
   eventListeners() {
@@ -327,10 +391,11 @@ class AppData {
         }
       }
     });
+
+    // Добавление депозита
+    depositCheck.addEventListener("change", this.depositHandler.bind(this));
   }
 }
-
-
 
 const appData = new AppData();
 appData.eventListeners();
@@ -351,21 +416,5 @@ appData.eventListeners();
 //     console.log("К сожалению у вас уровень дохода ниже среднего");
 //   } else {
 //     console.log("Что то пошло не так");
-//   }
-// };
-
-// AppData.prototype.getInfoDeposit = function () {
-//   let _this = this;
-//   if (_this.deposit) {
-//     do {
-//       _this.percentDeposit = prompt(
-//         "Какой у вас годовой процент у депозита?",
-//         5
-//       );
-//     } while (!isNumber(_this.percentDeposit));
-
-//     do {
-//       _this.moneyDeposit = prompt("Какая сумма у вас вложена?", "100000");
-//     } while (!isNumber(_this.moneyDeposit));
 //   }
 // };
