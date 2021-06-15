@@ -151,6 +151,7 @@ class AppData {
       depositBank.removeEventListener("change", this.changePercent);
       depositPercent.style.display = "none";
       depositPercent.value = "";
+      depositCheck.checked = false;
     };
     resetDeposit();
   }
