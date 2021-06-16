@@ -1,56 +1,79 @@
-window.addEventListener("DOMContentLoaded", function () {
-  "use strict";
+"use strict";
 
+setInterval(function () {
   // Timer
   const countTimer = function (deadLine) {
-    const timerHours = document.querySelector("#timer-hours"),
-      timerMinutes = document.querySelector("#timer-minutes"),
-      timerSeconds = document.querySelector("#timer-seconds");
+    const greetingElem = document.querySelector(".greeting"),
+      todayElem = document.querySelector(".today"),
+      nowTimeElem = document.querySelector(".now-time"),
+      counterElem = document.querySelector(".counter");
 
-    function getTimeRemaining() {
-      let dataStop = new Date(deadLine).getTime(),
-        dataNow = new Date().getTime(),
-        timeRamaining = (dataStop - dataNow) / 1000,
-        seconds = String(Math.floor(timeRamaining % 60)),
-        minutes = String(Math.floor((timeRamaining / 60) % 60)),
-        hours = String(Math.floor(timeRamaining / 60 / 60));
+    let data = new Date();
 
-      if (hours.length < 2) {
-        hours = hours.padStart(2, "0");
-      }
-      if (minutes.length < 2) {
-        minutes = minutes.padStart(2, "0");
-      }
-      if (seconds.length < 2) {
-        seconds = seconds.padStart(2, "0");
-      }
+    let dataStop = new Date(deadLine).getTime(),
+      dataNow = new Date().getTime(),
+      dayRamaining = Math.ceil((dataStop - dataNow) / 1000 / 86400);
 
-      return {
-        timeRamaining,
-        hours,
-        minutes,
-        seconds,
-      };
-    }
-
-    const updateClock = function () {
-      const idInterval = setTimeout(updateClock, 1000);
-      let timer = getTimeRemaining();
-
-      timerHours.textContent = timer.hours;
-      timerMinutes.textContent = timer.minutes;
-      timerSeconds.textContent = timer.seconds;
-
-      if (timer.timeRamaining < 0) {
-        clearInterval(idInterval);
-        timerHours.textContent = "00";
-        timerMinutes.textContent = "00";
-        timerSeconds.textContent = "00";
+    // Время суток
+    const greeting = function () {
+      if (data.getHours() >= 6 && data.getHours() <= 11) {
+        greetingElem.textContent = "Доброе утро!";
+      } else if (data.getHours() >= 12 && data.getHours() <= 22) {
+        greetingElem.textContent = "Добрый день!";
+      } else {
+        greetingElem.textContent = "Доброй ночи!";
       }
     };
+    greeting();
 
-    setTimeout(updateClock, 1000);
+    // Преобразуем дни недели
+    let todayDay = data.getDay();
+    let nowWeekDay;
+    switch (todayDay) {
+      case 0:
+        nowWeekDay = "Воскресенье";
+        break;
+      case 1:
+        nowWeekDay = "Понедельник";
+        break;
+      case 2:
+        nowWeekDay = "Вторник";
+        break;
+      case 3:
+        nowWeekDay = "Среда";
+        break;
+      case 4:
+        nowWeekDay = "Четверг";
+        break;
+      case 5:
+        nowWeekDay = "Пятница";
+        break;
+      case 6:
+        nowWeekDay = "Суббота";
+        break;
+    }
+    todayElem.textContent = `Сегодня: ${nowWeekDay}`;
+
+    // Выводим время
+    let time = data.toLocaleTimeString("en");
+    nowTimeElem.textContent = `Текущее время: ${time}`;
+
+    // Выводим дни до Нового года
+    let stringDayRemaining = String(dayRamaining).slice(-1);
+    let countDay = "";
+
+    if (Number(stringDayRemaining) === 1) {
+      countDay = "день";
+    } else if (
+      Number(stringDayRemaining) >= 2 &&
+      Number(stringDayRemaining) <= 4
+    ) {
+      countDay = "дня";
+    } else {
+      countDay = "дней";
+    }
+    counterElem.textContent = `До нового года осталось ${dayRamaining} ${countDay}.`;
   };
 
-  countTimer("17 june 2021");
-});
+  countTimer("01 January 2022");
+}, 1000);
