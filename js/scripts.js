@@ -391,22 +391,12 @@ window.addEventListener("DOMContentLoaded", function () {
     statusMessage.style.cssText = "font-size: 2rem;";
 
     const postData = (body) => {
-      return new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-        request.addEventListener("readystatechange", () => {
-          if (request.readyState !== 4) {
-            return;
-          }
-          if (request.status === 200) {
-            resolve();
-          } else {
-            reject(request.status);
-          }
-        });
-
-        request.open("POST", "../server.php");
-        request.setRequestHeader("Content-Type", "application/json");
-        request.send(JSON.stringify(body));
+      return fetch("../server.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
       });
     };
 
@@ -422,7 +412,6 @@ window.addEventListener("DOMContentLoaded", function () {
       item.addEventListener("submit", (event) => {
         event.preventDefault();
         item.appendChild(statusMessage);
-        statusMessage.textContent = loadMessage;
         statusMessage.style.color = "#ffffff";
         const formData = new FormData(item);
         let body = {};
@@ -430,9 +419,17 @@ window.addEventListener("DOMContentLoaded", function () {
           body[key] = val;
         });
 
+        statusMessage.textContent = loadMessage;
+
         postData(body)
-          .then((statusMessage.textContent = successMessage))
-          .catch((error) => errorMessage)
+          .then((response) => {
+            if (response.status !== 200) {
+              throw new Error(response);
+            } else {
+              statusMessage.textContent = successMessage;
+            }
+          })
+          .catch((error) => statusMessage.textContent = errorMessage)
           .finally(clearInput());
       });
     });
