@@ -1,0 +1,24 @@
+{
+  "name": "lern-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo \"webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikolay-mumyatov/lern-JS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikolay-mumyatov/lern-JS/issues"
+  },
+  "homepage": "https://github.com/nikolay-mumyatov/lern-JS#readme",
+  "devDependencies": {
+    "webpack": "^5.41.1",
+    "webpack-cli": "^4.7.2"
+  }
+}
