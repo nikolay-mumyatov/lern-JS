@@ -381,7 +381,6 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  
   // отправка формы через ajax
   const sendForm = () => {
     const errorMessage = "Ошибка отправки!",
@@ -394,22 +393,22 @@ window.addEventListener("DOMContentLoaded", function () {
     const postData = (body) => {
       return new Promise((resolve, reject) => {
         const request = new XMLHttpRequest();
-        request.open("POST", "../server.php");
-        request.setRequestHeader("Content-Type", "application/json");
         request.addEventListener("readystatechange", () => {
           if (request.readyState !== 4) {
             return;
           }
           if (request.status === 200) {
-            const response = request.send(JSON.stringify(body));
-            resolve(response);
+            resolve();
           } else {
             reject(request.status);
           }
         });
+
+        request.open("POST", "../server.php");
+        request.setRequestHeader("Content-Type", "application/json");
+        request.send(JSON.stringify(body));
       });
     };
-
 
     const clearInput = () => {
       const inputItem = document.querySelectorAll("input");
@@ -417,7 +416,6 @@ window.addEventListener("DOMContentLoaded", function () {
         item.value = "";
       });
     };
-
 
     const formAll = document.querySelectorAll(".form-ajax");
     formAll.forEach((item) => {
