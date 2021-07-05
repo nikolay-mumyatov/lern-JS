@@ -57,20 +57,18 @@ window.addEventListener("DOMContentLoaded", function () {
   // Menu
   const toggleMenu = () => {
     const btnMenu = document.querySelector(".menu"),
-      menu = document.querySelector("menu");
+      menu = document.querySelector("menu"),
+      menuLink = document.querySelectorAll(".menu__link"),
+      closeBtn = document.querySelector(".close-btn");
 
     const handlerMenu = () => {
       menu.classList.toggle("active-menu");
     };
 
     btnMenu.addEventListener("click", handlerMenu);
-
-    document.addEventListener("click", (event) => {
-      let target = event.target;
-      target = target.closest("menu");
-      if (target) {
-        handlerMenu();
-      }
+    closeBtn.addEventListener("click", handlerMenu);
+    menuLink.forEach((item) => {
+      item.addEventListener("click", handlerMenu);
     });
   };
   toggleMenu();
@@ -170,7 +168,6 @@ window.addEventListener("DOMContentLoaded", function () {
   // Слайдер
   const slider = () => {
     const slide = document.querySelectorAll(".portfolio-item"),
-      btn = document.querySelectorAll(".portfolio-btn"),
       dot = document.querySelectorAll(".dot"),
       slider = document.querySelector(".portfolio-content");
 
@@ -235,7 +232,7 @@ window.addEventListener("DOMContentLoaded", function () {
         currentSlide = slide.length - 1;
       }
       nextSlide(slide, currentSlide, "portfolio-item-active");
-      nextSlide(slide, currentSlide, "dot-active");
+      nextSlide(dot, currentSlide, "dot-active");
     });
 
     slider.addEventListener("mouseover", (event) => {
@@ -322,7 +319,7 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
   //Плавный скролл страницы
-  const linksScroll = document.querySelectorAll("a");
+  const linksScroll = document.querySelectorAll(".menu__link");
 
   for (let item of linksScroll) {
     item.addEventListener("click", function (event) {
@@ -363,10 +360,19 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  const inputName = document.querySelectorAll(".form-name");
+  inputName.forEach((item) => {
+    item.addEventListener("blur", () => {
+      if (item.value.length < 2 || item.value.length > 50) {
+        item.value = "";
+      }
+    });
+  });
+
   const inputEmail = document.querySelectorAll(".input-email");
   inputEmail.forEach((item) => {
     item.addEventListener("blur", () => {
-      item.value = item.value.replace(/[^a-zA@\-_.!~*']/g, "");
+      item.value = item.value.replace(/[^a-zA@\-_.']/g, "");
       item.value = item.value.trim();
       item.value = item.value.replace(/^-+|-+$/g, "");
     });
@@ -426,10 +432,13 @@ window.addEventListener("DOMContentLoaded", function () {
             if (response.status !== 200) {
               throw new Error(response);
             } else {
+              setTimeout(function () {
+                statusMessage.textContent = "";
+              }, 3000);
               statusMessage.textContent = successMessage;
             }
           })
-          .catch((error) => statusMessage.textContent = errorMessage)
+          .catch((error) => (statusMessage.textContent = errorMessage))
           .finally(clearInput());
       });
     });
