@@ -26,6 +26,15 @@ const validateInput = () => {
     });
   });
 
+  const inputName = document.querySelectorAll(".form-name");
+  inputName.forEach((item) => {
+    item.addEventListener("blur", () => {
+      if (item.value.length < 2 || item.value.length > 50) {
+        item.value = "";
+      }
+    });
+  });
+
   const inputEmail = document.querySelectorAll(".input-email");
   inputEmail.forEach((item) => {
     item.addEventListener("blur", () => {

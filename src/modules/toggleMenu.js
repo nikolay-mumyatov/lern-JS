@@ -2,20 +2,18 @@
 
 const toggleMenu = () => {
   const btnMenu = document.querySelector(".menu"),
-    menu = document.querySelector("menu");
+    menu = document.querySelector("menu"),
+    menuLink = document.querySelectorAll(".menu__link"),
+    closeBtn = document.querySelector(".close-btn");
 
   const handlerMenu = () => {
     menu.classList.toggle("active-menu");
   };
 
   btnMenu.addEventListener("click", handlerMenu);
-
-  document.addEventListener("click", (event) => {
-    let target = event.target;
-    target = target.closest("menu");
-    if (target) {
-      handlerMenu();
-    }
+  closeBtn.addEventListener("click", handlerMenu);
+  menuLink.forEach((item) => {
+    item.addEventListener("click", handlerMenu);
   });
 };
 

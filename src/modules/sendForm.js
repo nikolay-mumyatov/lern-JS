@@ -44,6 +44,9 @@ const sendForm = () => {
           if (response.status !== 200) {
             throw new Error(response);
           } else {
+            setTimeout(function () {
+              statusMessage.textContent = "";
+            }, 3000);
             statusMessage.textContent = successMessage;
           }
         })
@@ -52,5 +55,6 @@ const sendForm = () => {
     });
   });
 };
+
 
 export default sendForm;
