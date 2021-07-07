@@ -36,6 +36,13 @@ const togglePopup = () => {
   popupClose.addEventListener("click", () => {
     popup.style.display = "none";
   });
+
+  document.body.addEventListener('click', (event) => {
+    let target = event.target;
+    if(target.matches('.popup')){
+      popup.style.display = 'none';
+    }
+  });
 };
 
 export default togglePopup;
