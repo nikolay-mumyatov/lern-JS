@@ -11,7 +11,10 @@ const toggleMenu = () => {
   };
 
   btnMenu.addEventListener("click", handlerMenu);
-  closeBtn.addEventListener("click", handlerMenu);
+  closeBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    handlerMenu();
+  });
   menuLink.forEach((item) => {
     item.addEventListener("click", handlerMenu);
   });

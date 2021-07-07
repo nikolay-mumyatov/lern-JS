@@ -3,7 +3,8 @@
 const sendForm = () => {
   const errorMessage = "Ошибка отправки!",
     loadMessage = "Идет загрузка...",
-    successMessage = "Спасибо! Мы скоро с вами свяжемся!";
+    successMessage = "Спасибо! Мы скоро с вами свяжемся!",
+    popupBlock = document.querySelector(".popup");
 
   const statusMessage = document.createElement("div");
   statusMessage.style.cssText = "font-size: 2rem;";
@@ -48,6 +49,9 @@ const sendForm = () => {
               statusMessage.textContent = "";
             }, 3000);
             statusMessage.textContent = successMessage;
+            setTimeout(function () {
+              popupBlock.style.display = "none";
+            }, 3000);
           }
         })
         .catch((error) => (statusMessage.textContent = errorMessage))
@@ -55,6 +59,5 @@ const sendForm = () => {
     });
   });
 };
-
 
 export default sendForm;

@@ -13,7 +13,7 @@ import validateInput from "./modules/validateInput";
 import sendForm from "./modules/sendForm";
 
 // Timer
-countTimer("03 july 2021");
+countTimer("15 july 2021");
 // Menu
 toggleMenu();
 // popup

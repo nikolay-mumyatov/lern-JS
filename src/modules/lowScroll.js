@@ -1,7 +1,7 @@
 "use strict";
 
 const lowScroll = () => {
-  const linksScroll = document.querySelectorAll(".menu__link");
+  const linksScroll = document.querySelectorAll(".down-scroll");
 
   for (let item of linksScroll) {
     item.addEventListener("click", function (event) {

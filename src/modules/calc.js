@@ -15,6 +15,10 @@ const calc = (price = 100) => {
 
     const typeValue = calcType.options[calcType.selectedIndex].value,
       squareValue = +calcSquare.value;
+    console.log(squareValue);
+    // if(squareValue === 0) {
+    //   total = 0;
+    // }
 
     if (calcCount.value > 1) {
       countValue += (calcCount.value - 1) / 10;
@@ -30,6 +34,10 @@ const calc = (price = 100) => {
       total = price * typeValue * squareValue * countValue * dayValue;
     } else {
       total = 0;
+
+      calcCount.value = "";
+      calcSquare.value = "";
+      calcDay.value = "";
     }
 
     totalValue.textContent = Math.ceil(total);
