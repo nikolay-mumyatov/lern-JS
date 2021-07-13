@@ -11,6 +11,9 @@ body {
 	overflow-x: hidden;
 	font-family: "Open Sans", sans-serif;
 }
+.active-blick{
+	display: block;
+}
 .main-wrapper {
 	min-height: 100%;
 	height: auto !important;
@@ -1209,6 +1212,11 @@ video#video_background {
 	margin-bottom: 15px;
 	font-weight: bold;
 	color: #2fab6d;
+}
+
+.up-scroll{
+	visibility: hidden;
+	transition: 0.5s all;
 }
 
 .up {
