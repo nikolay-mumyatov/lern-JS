@@ -1,17 +1,16 @@
 "use strict";
 
 const modalOpen = () => {
-  const phoneBtn = document.querySelector("#phone-modal"),
-    modalCallback = document.querySelector(".modal-callback"),
+  const modalCallback = document.querySelector(".modal-callback"),
     modalOverlay = document.querySelector(".modal-overlay");
 
-  console.log(phoneBtn);
-
-  phoneBtn.addEventListener("click", function (event) {
+  document.body.addEventListener("click", (event) => {
     event.preventDefault();
-
-    modalCallback.style.display = "block";
-    modalOverlay.style.display = "block";
+    let target = event.target;
+    if (target.matches(".callback-btn") || target.matches(".button-services")) {
+      modalCallback.style.display = "block";
+      modalOverlay.style.display = "block";
+    }
   });
 };
 modalOpen();
@@ -27,23 +26,21 @@ const closeModal = () => {
 };
 closeModal();
 
-
 const showUp = () => {
   const upBtn = document.querySelector(".up-scroll");
 
   window.addEventListener("scroll", function (e) {
     const upHeight = window.pageYOffset;
     if (upHeight >= 520) {
-      upBtn.style.visibility = 'visible';
-      upBtn.style.opacity = '1';
+      upBtn.style.visibility = "visible";
+      upBtn.style.opacity = "1";
     } else {
-      upBtn.style.visibility = 'hidden';
+      upBtn.style.visibility = "hidden";
       upBtn.style.opacity = "0";
     }
   });
 };
 showUp();
-
 
 const lowScroll = () => {
   const linksScroll = document.querySelectorAll(".scroll");
@@ -62,3 +59,36 @@ const lowScroll = () => {
 };
 
 lowScroll();
+
+
+const accordeon = () => {
+  const accordeon = document.querySelector(".accordeon"),
+    tab = accordeon.querySelectorAll(".element"),
+    tabContent = document.querySelectorAll(".element-content");
+
+  const toggleTab = (index) => {
+    for (let i = 0; i < tabContent.length; i++) {
+      if (index === i) {
+        tab[i].classList.add("active");
+        tabContent[i].style.display = 'block';
+      } else {
+        tab[i].classList.remove("active");
+        tabContent[i].style.display = 'none';
+      }
+    }
+  };
+
+  accordeon.addEventListener("click", (event) => {
+    let target = event.target;
+    target = target.closest(".element");
+
+    if (target) {
+      tab.forEach((item, i) => {
+        if (item === target) {
+          toggleTab(i);
+        }
+      });
+    }
+  });
+};
+accordeon();
