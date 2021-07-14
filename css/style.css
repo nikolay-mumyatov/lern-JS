@@ -946,7 +946,7 @@ video#video_background {
 		transition: 0.5s;
 	}
 	.top-slider .table.active {
-		webkit-transform: scale(1);
+		-webkit-transform: scale(1);
 		-ms-transform: scale(1);
 		-o-transform: scale(1);
 		transform: scale(1);
@@ -973,8 +973,11 @@ video#video_background {
 /* end top slider */
 
 /************************* accordeon **************************/
-.accordeon .element-content {
+.accordeon .hidden-content{
 	display: none;
+}
+
+.accordeon .element-content {
 	padding: 20px;
 	font-size: 13px;
 	color: #888885;
@@ -1024,9 +1027,9 @@ video#video_background {
 .accordeon .element.active .title:before {
 	background: url(../images/minus.png) 50% 50% no-repeat #333;
 }
-.accordeon > div:first-of-type .element-content {
+/* .accordeon > div:first-of-type .element-content {
 	display: block;
-}
+} */
 .accordeon .element .title:hover:before {
 	background-color: #333;
 }
