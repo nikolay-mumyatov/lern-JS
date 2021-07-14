@@ -852,13 +852,27 @@ hr.white {
 	background-color: #fff !important;
 }
 .top-slider {
+	position: relative;
 	overflow: hidden;
 	height: 450px;
 }
 .top-slider .item {
+	position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 100%;
+  opacity: 0;
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
 	overflow: hidden;
 	height: 450px;
-	position: relative;
+}
+.slider-item-active {
+	opacity: 1 !important;
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
 }
 .top-slider .item:before {
 	content: "";
