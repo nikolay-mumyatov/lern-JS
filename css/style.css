@@ -1258,3 +1258,22 @@ video#video_background {
 	}
 }
 /**** /. services section *****/
+
+.carousel{
+	display: flex;
+	/* justify-content: center; */
+}
+
+.carousel-container{
+	padding: 0;
+	max-width: 900px;
+	overflow: hidden;
+}
+
+.services-carousel{
+	display: flex;
+	align-items: center;
+}
+.carousel-item{
+	width: 250px;
+}
