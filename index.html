@@ -682,7 +682,7 @@
       <div class="title-h2">Мы перезвоним через 5 минут!</div>
       <br />
       <div class="rf">
-        <form action="server.php" name="form-callback" class="form-ajax">
+        <form action="server.php" method="POST" id="form-callback" class="form-ajax">
           <div class="form-group">
             <input type="text" name="fio" class="form-control form-name bio" placeholder="Ваше имя" required />
           </div>
@@ -695,7 +695,7 @@
             <span class="f12">- поля, обязательные для заполнения</span>
           </p>
           <div>
-            <input type="submit" class="button btn feedback" value="Отправить" />
+            <button type="submit" class="button btn feedback">Отправить</button>
           </div>
         </form>
       </div>

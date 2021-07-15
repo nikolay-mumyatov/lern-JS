@@ -2,10 +2,10 @@
 
 const modalOpen = () => {
   const modalCallback = document.querySelector(".modal-callback"),
-    modalOverlay = document.querySelector(".modal-overlay");
+    modalOverlay = document.querySelector(".modal-overlay"),
+    form = document.querySelector('form');
 
   document.body.addEventListener("click", (event) => {
-    event.preventDefault();
     let target = event.target;
     if (
       target.matches(".callback-btn") ||
@@ -194,7 +194,8 @@ const sendForm = () => {
   const errorMessage = "Ошибка! Письмо не отправлено.",
     loadMessage = "Идет загрузка...",
     successMessage = "Спасибо! Мы скоро с вами свяжемся!",
-    modalBlock = document.querySelector(".modal-callback");
+    modalBlock = document.querySelector(".modal-callback"),
+    modalOverlay = document.querySelector(".modal-overlay");
 
   const statusMessage = document.createElement("div");
   statusMessage.style.cssText = "font-size: 16px";
@@ -216,15 +217,14 @@ const sendForm = () => {
     });
   };
 
-  const formAll = document.querySelectorAll(".form-ajax");
+  const formCallback = document.querySelector("#form-callback");
+    console.log(formCallback);
 
-  formAll.forEach((item) => {
-
-    item.addEventListener("submit", (event) => {
+    formCallback.addEventListener('submit', (event) => {
       event.preventDefault();
-      item.appendChild(statusMessage);
+      formCallback.appendChild(statusMessage);
       statusMessage.style.color = "#000000";
-      const formData = new FormData(item);
+      const formData = new FormData(formCallback);
       let body = {};
       formData.forEach((val, key) => {
         body[key] = val;
@@ -243,12 +243,12 @@ const sendForm = () => {
             statusMessage.textContent = successMessage;
             setTimeout(function () {
               modalBlock.style.display = "none";
+              modalOverlay.style.display = "none";
             }, 3000);
           }
         })
         .catch((error) => (statusMessage.textContent = errorMessage))
         .finally(clearInput());
     });
-  });
 };
 sendForm();
