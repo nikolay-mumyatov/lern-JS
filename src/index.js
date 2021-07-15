@@ -1,12 +1,12 @@
 "use strict";
 
-import modalOpen from "./modules/togglePopup";
-import closeModal from "./modules/tabs";
-import showUp from "./modules/addDot";
-import lowScroll from "./modules/slider";
-import accordeon from "./modules/calc";
-import slider from "./modules/pictureChange";
-import carusel from "./modules/lowScroll";
+import modalOpen from "./modules/modalOpen";
+import closeModal from "./modules/closeModal";
+import showUp from "./modules/showUp";
+import lowScroll from "./modules/lowScroll";
+import accordeon from "./modules/accordeon";
+import slider from "./modules/slider";
+import carusel from "./modules/carusel";
 import validateInput from "./modules/validateInput";
 import sendForm from "./modules/sendForm";
 

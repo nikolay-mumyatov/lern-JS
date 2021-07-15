@@ -28,8 +28,6 @@ const sendForm = () => {
   };
 
   const formCallback = document.querySelector("#form-callback");
-  console.log(formCallback);
-
   formCallback.addEventListener("submit", (event) => {
     event.preventDefault();
     formCallback.appendChild(statusMessage);
