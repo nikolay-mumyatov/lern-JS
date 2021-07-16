@@ -6,23 +6,34 @@ const carusel = () => {
     arrowRight = document.querySelector(".arrow-right"),
     arrowLeft = document.querySelector(".arrow-left");
 
-  let widthItem = 260,
-    count = 2,
+  let widthItem = 15,
+    count = 1,
     positionStart = 0;
 
   arrowRight.addEventListener("click", () => {
-    positionStart -= widthItem * count;
-    positionStart = Math.max(
-      positionStart,
-      -widthItem * (itemCarousel.length - count)
-    );
-    carousel.style.marginLeft = positionStart + "px";
+    positionStart = widthItem * count;
+    count++;
+    if (count === 5) {
+      positionStart = Math.max(
+        positionStart,
+        -widthItem * (itemCarousel.length - count)
+      );
+      carousel.style.transform = `translateX(-${positionStart}%)`;
+      count = 0;
+    } else {
+      positionStart = Math.max(
+        positionStart,
+        -widthItem * (itemCarousel.length - count)
+      );
+      carousel.style.transform = `translateX(-${positionStart}%)`;
+    }
   });
 
   arrowLeft.addEventListener("click", () => {
     positionStart += widthItem * count;
     positionStart = Math.min(positionStart, 0);
-    carousel.style.marginLeft = positionStart + "px";
+    carousel.style.transform = `translateX(${positionStart}%)`;
+    count = 1;
   });
 };
 

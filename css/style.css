@@ -1273,6 +1273,7 @@ video#video_background {
 .services-carousel{
 	display: flex;
 	align-items: center;
+	transition: 0.5s all;
 }
 .carousel-item{
 	width: 250px;
