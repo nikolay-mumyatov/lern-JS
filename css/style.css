@@ -1278,3 +1278,21 @@ video#video_background {
 .carousel-item{
 	width: 250px;
 }
+
+@media (max-width: 992px) {
+	.carousel-container{
+		max-width: 700px;
+	}
+}
+
+@media (max-width: 767px) {
+	.carousel-container{
+		max-width: 500px;
+	}
+}
+
+@media (max-width: 545px) {
+	.carousel-container{
+		max-width: 320px;
+	}
+}
